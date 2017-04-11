@@ -17,7 +17,7 @@ import org.springframework.web.client.RestTemplate;
  */
 @RestController
 @RibbonClient(name = "user-service")
-public class ConsumerController {
+public class RestConsumerController {
 
     @LoadBalanced
     @Bean
