@@ -2,7 +2,7 @@ package cn.simafei;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.cloud.netflix.eureka.server.EnableEurekaServer;
+import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 
 /**
  * Created by IntelliJ IDEA.
@@ -12,10 +12,10 @@ import org.springframework.cloud.netflix.eureka.server.EnableEurekaServer;
  * @since 2017/4/10
  */
 @SpringBootApplication
-@EnableEurekaServer
-public class RegistryApplication {
+@EnableDiscoveryClient
+public class Provider {
 
     public static void main(String[] args) {
-        SpringApplication.run(RegistryApplication.class, args);
+        SpringApplication.run(Provider.class, args);
     }
 }
