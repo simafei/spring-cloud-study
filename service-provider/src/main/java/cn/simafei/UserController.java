@@ -1,5 +1,6 @@
 package cn.simafei;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.cloud.context.config.annotation.RefreshScope;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -19,12 +20,20 @@ import javax.validation.Valid;
 @RefreshScope
 public class UserController {
 
+    @Autowired
+    private UserService userService;
+
     @Value("${key}")
     private String key;
 
     @RequestMapping("/user/key")
     public String getKey() {
         return key;
+    }
+
+    @RequestMapping("/user/get")
+    public String getUser() {
+        return userService.getUser();
     }
 
     @RequestMapping("/add")
