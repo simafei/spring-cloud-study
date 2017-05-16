@@ -1,13 +1,13 @@
 package cn.simafei;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.cloud.context.config.annotation.RefreshScope;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import javax.validation.Valid;
+import java.util.List;
 
 /**
  * Created by IntelliJ IDEA.
@@ -23,21 +23,13 @@ public class UserController {
     @Autowired
     private UserService userService;
 
-    @Value("${key}")
-    private String key;
-
-    @RequestMapping("/user/key")
-    public String getKey() {
-        return key;
+    @RequestMapping("/users")
+    public List<User> getUser() {
+        return userService.getUsers();
     }
 
-    @RequestMapping("/user/get")
-    public String getUser() {
-        return userService.getUser();
-    }
-
-    @RequestMapping("/add")
-    public int add(@RequestParam int a, @RequestParam int b) {
-        return a + b;
+    @RequestMapping("/user/${id}")
+    public User getUser(@PathVariable("id") Long id) {
+        return userService.getUser(id);
     }
 }

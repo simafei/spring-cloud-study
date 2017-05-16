@@ -1,8 +1,11 @@
 package cn.simafei;
 
 import org.springframework.cloud.netflix.feign.FeignClient;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+
+import java.util.List;
 
 /**
  * Created by IntelliJ IDEA.
@@ -13,6 +16,9 @@ import org.springframework.web.bind.annotation.RequestParam;
  */
 @FeignClient(name = "user-service")
 public interface FeignConsumerClient {
-    @RequestMapping(value = "/add")
-    int add(@RequestParam(value = "a") int a, @RequestParam(value = "b") int b);
+    @RequestMapping(value = "/user/${id}")
+    User getUser(@PathVariable("id") Long id);
+
+    @RequestMapping(value = "/users")
+    List<User> getUsers();
 }

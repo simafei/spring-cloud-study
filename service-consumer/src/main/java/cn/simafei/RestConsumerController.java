@@ -4,10 +4,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.cloud.context.config.annotation.RefreshScope;
 import org.springframework.cloud.netflix.ribbon.RibbonClient;
-import org.springframework.context.annotation.Configuration;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
+
+import java.util.List;
 
 /**
  * Created by IntelliJ IDEA.
@@ -23,19 +26,24 @@ public class RestConsumerController {
 
     @Autowired
     RestTemplate restTemplate;
+    @Autowired
+    FeignConsumerClient client;
 
-    @Value("${value}")
-    private String value;
+    @Value("${consumer.key}")
+    private String consumerKey;
 
     @RequestMapping("/hi")
     public String hi() {
-        int greeting = this.restTemplate.getForObject("http://user-service/add?a=1&b=6", int.class);
-        return String.format("result = %d", greeting);
+        return consumerKey;
     }
 
-    @RequestMapping("/user/key")
-    public String getKey() {
-        String key = this.restTemplate.getForObject("http://user-service/user/key", String.class);
-        return String.format("%s=%s", key, value);
+    @RequestMapping(value = "/user/${id}", method = RequestMethod.GET)
+    public User getUser(@PathVariable("id") Long id) {
+        return restTemplate.getForObject("http://user-service/user/" + id, User.class);
+    }
+
+    @RequestMapping(value = "/users", method = RequestMethod.GET)
+    public List<User> getUsers() {
+        return client.getUsers();
     }
 }
