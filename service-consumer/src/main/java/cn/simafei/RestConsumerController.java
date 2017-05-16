@@ -37,7 +37,7 @@ public class RestConsumerController {
         return consumerKey;
     }
 
-    @RequestMapping(value = "/user/${id}", method = RequestMethod.GET)
+    @RequestMapping(value = "/user/{id}", method = RequestMethod.GET)
     public User getUser(@PathVariable("id") Long id) {
         return restTemplate.getForObject("http://user-service/user/" + id, User.class);
     }

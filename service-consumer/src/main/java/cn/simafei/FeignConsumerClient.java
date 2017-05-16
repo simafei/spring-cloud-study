@@ -16,7 +16,7 @@ import java.util.List;
  */
 @FeignClient(name = "user-service")
 public interface FeignConsumerClient {
-    @RequestMapping(value = "/user/${id}")
+    @RequestMapping(value = "/user/{id}")
     User getUser(@PathVariable("id") Long id);
 
     @RequestMapping(value = "/users")
