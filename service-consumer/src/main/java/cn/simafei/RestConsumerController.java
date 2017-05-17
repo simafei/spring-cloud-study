@@ -1,6 +1,7 @@
 package cn.simafei;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.cloud.context.config.annotation.RefreshScope;
 import org.springframework.cloud.netflix.ribbon.RibbonClient;
@@ -10,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
 
+import javax.annotation.Resource;
 import java.util.List;
 
 /**
@@ -25,9 +27,7 @@ import java.util.List;
 public class RestConsumerController {
 
     @Autowired
-    RestTemplate restTemplate;
-    @Autowired
-    FeignConsumerClient client;
+    private FeignConsumerClient feignConsumerClient;
 
     @Value("${consumer.key}")
     private String consumerKey;
@@ -37,13 +37,8 @@ public class RestConsumerController {
         return consumerKey;
     }
 
-    @RequestMapping(value = "/user/{id}", method = RequestMethod.GET)
-    public User getUser(@PathVariable("id") Long id) {
-        return restTemplate.getForObject("http://user-service/user/" + id, User.class);
-    }
-
     @RequestMapping(value = "/users", method = RequestMethod.GET)
     public List<User> getUsers() {
-        return client.getUsers();
+        return feignConsumerClient.getUsers();
     }
 }

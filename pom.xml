@@ -13,6 +13,9 @@
         <module>service-provider</module>
         <module>service-consumer</module>
         <module>config-server</module>
+        <module>service-zuul</module>
+        <module>service-hystrix</module>
+        <module>service-zipkin</module>
     </modules>
 
     <parent>
@@ -24,10 +27,18 @@
 
     <dependencyManagement>
         <dependencies>
+            <!--<dependency>-->
+                <!--<groupId>org.springframework.cloud</groupId>-->
+                <!--<artifactId>spring-cloud-dependencies</artifactId>-->
+                <!--<version>Dalston.RC1</version>-->
+                <!--<type>pom</type>-->
+                <!--<scope>import</scope>-->
+            <!--</dependency>-->
+
             <dependency>
                 <groupId>org.springframework.cloud</groupId>
                 <artifactId>spring-cloud-dependencies</artifactId>
-                <version>Dalston.RC1</version>
+                <version>Camden.SR6</version>
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
