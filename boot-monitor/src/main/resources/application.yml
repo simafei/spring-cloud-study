@@ -1,0 +1,16 @@
+server:
+  port: 8082
+management:
+  port: 9999
+  health:
+    mail:
+      enabled: true
+  security:
+    enabled: false
+spring:
+  application:
+    name: Spring-Admin
+  boot:
+    admin:
+      url: http://localhost:${server.port}
+
